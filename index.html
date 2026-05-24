@@ -77,6 +77,10 @@ body{font-family:'Noto Sans KR',sans-serif;color:var(--text);background:var(--wh
 .footer strong{color:rgba(255,255,255,.8)}
 @media(max-width:768px){.section .inner,.prog-wrap .inner,.footer .inner{padding:0 20px}}
 </style>
+<style>
+html, body { width: 100%; min-width: 100%; overflow-x: hidden; }
+* { max-width: 100%; }
+</style>
 </head>
 <body>
 <div class="lp">
@@ -227,11 +231,24 @@ loadData();
   function sendHeight(){
     var h = document.documentElement.scrollHeight;
     window.parent.postMessage({type:'iframeHeight',height:h},'*');
+    window.parent.postMessage({type:'iframeWidth',width:'100%'},'*');
   }
   window.addEventListener('load', sendHeight);
   window.addEventListener('resize', sendHeight);
   var mo = new MutationObserver(sendHeight);
   mo.observe(document.body,{childList:true,subtree:true,attributes:true});
+
+  // Force parent iframe to 100% width from inside
+  try {
+    var style = document.createElement('style');
+    style.textContent = 'iframe{width:100%!important;max-width:100%!important;}';
+    window.parent.document.head.appendChild(style);
+  } catch(e){}
+
+  // Also tell parent via postMessage to resize iframe
+  window.addEventListener('load', function(){
+    window.parent.postMessage({type:'iframeHeight', height: document.body.scrollHeight}, '*');
+  });
 })();
 </script>
 </body>
