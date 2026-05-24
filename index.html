@@ -17,18 +17,6 @@ body{font-family:'Noto Sans KR',sans-serif;color:var(--text);background:var(--wh
 
 
 
-/* PROGRAM BANNER */
-.prog-wrap{padding:36px 0}
-.prog-wrap .inner{max-width:1200px;margin:0 auto;padding:0 48px}
-.prog-banner{background:var(--navy);border-radius:12px;padding:28px 32px;color:#fff}
-.prog-badge{font-size:10px;font-weight:700;color:rgba(255,255,255,.45);letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px}
-.prog-title{font-size:16px;font-weight:700;margin-bottom:8px}
-.prog-desc{font-size:13px;color:rgba(255,255,255,.72);line-height:1.8;margin-bottom:18px}
-.prog-tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
-.prog-tag{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);color:#fff;font-size:12px;padding:4px 12px;border-radius:20px}
-.prog-link{display:inline-flex;align-items:center;gap:4px;font-size:12px;color:rgba(255,255,255,.55);text-decoration:underline;transition:color .2s}
-.prog-link:hover{color:#fff}
-
 /* SECTION */
 .section{padding:40px 0}
 .section .inner{max-width:1200px;margin:0 auto;padding:0 48px}
@@ -62,7 +50,7 @@ body{font-family:'Noto Sans KR',sans-serif;color:var(--text);background:var(--wh
 .eq-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px}
 .eq-card{background:#fff;border:1px solid var(--border);border-radius:10px;overflow:hidden;transition:box-shadow .2s,transform .2s}
 .eq-card:hover{box-shadow:0 4px 20px rgba(11,31,74,.09);transform:translateY(-2px)}
-.eq-card-img{height:150px;background:var(--light);display:flex;align-items:center;justify-content:center;border-bottom:1px solid var(--border);overflow:hidden}
+.eq-card-img{height:150px;background:#f7f7f7;display:flex;align-items:center;justify-content:center;border-bottom:1px solid var(--border);overflow:hidden}
 .eq-card-img img{width:100%;height:100%;object-fit:contain;padding:12px}
 .eq-emoji{font-size:40px}
 .eq-card-body{padding:14px 16px}
@@ -92,23 +80,6 @@ body{font-family:'Noto Sans KR',sans-serif;color:var(--text);background:var(--wh
 </head>
 <body>
 <div class="lp">
-
-  <!-- PROGRAM BANNER -->
-  <div class="prog-wrap"><div class="inner">
-    <div class="prog-banner">
-      <div class="prog-badge">지원사업 안내</div>
-      <div class="prog-title">2026년도 소공인 스마트제조지원(스마트공방)사업이란?</div>
-      <div class="prog-desc">소공인이 스마트 장비를 도입할 수 있도록 정부가 구매비용 일부를 지원하는 사업입니다.<br>나눔테크놀로지는 이 사업의 공급기업으로 선정되어 보조금 연계 장비 공급이 가능합니다.</div>
-      <div class="prog-tags">
-        <span class="prog-tag">✅ 공급기업 선정</span>
-        <span class="prog-tag">✅ 보조금 연계 가능</span>
-        <span class="prog-tag">✅ 사후 기술지원 포함</span>
-        <span class="prog-tag">✅ AS 보장</span>
-      </div>
-      <a class="prog-link" href="https://www.ycgroup.co.kr/2026_smart" target="_blank">스마트공방 더 자세히 알아보기 →</a>
-    </div>
-  </div></div>
-
   <!-- EQUIPMENT -->
   <div class="section"><div class="inner">
     <div class="sec-label">장비 라인업</div>
@@ -249,6 +220,19 @@ document.getElementById('cat-tabs').addEventListener('click', e => {
 });
 
 loadData();
+</script>
+
+<script>
+(function(){
+  function sendHeight(){
+    var h = document.documentElement.scrollHeight;
+    window.parent.postMessage({type:'iframeHeight',height:h},'*');
+  }
+  window.addEventListener('load', sendHeight);
+  window.addEventListener('resize', sendHeight);
+  var mo = new MutationObserver(sendHeight);
+  mo.observe(document.body,{childList:true,subtree:true,attributes:true});
+})();
 </script>
 </body>
 </html>
